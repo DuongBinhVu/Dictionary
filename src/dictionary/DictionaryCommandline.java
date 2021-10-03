@@ -8,7 +8,7 @@ public class DictionaryCommandline extends DictionaryManagement {
      */
     public void showAllWords() {
         if (wordList.isEmpty()) {
-            System.out.println("Dictionary has not been imported!");
+            System.out.println("Dictionary is empty!");
         } else {
             System.out.printf("%-10s %-30s %-30s%n", "No", "| English", "| Vietnamese");
 

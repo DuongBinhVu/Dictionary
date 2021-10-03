@@ -82,19 +82,6 @@ public class Word {
     }
 
     /**
-     * Read word from screen.
-     *
-     * @param scanner Scanner
-     */
-    public void readWord(Scanner scanner) {
-        String[] reader = scanner.nextLine().split("\t");
-
-        this.trueForm = reader[0];
-        this.meaning = reader[1];
-        this.spelling = this.trueForm.toLowerCase();
-    }
-
-    /**
      * Write word to screen.
      */
     public void writeWord() {
