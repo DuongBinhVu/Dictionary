@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DictionaryManagement extends Dictionary {
-    private final String IMPORT_FILE_PATH = "src/resource/dictionaries.txt";
-    private final String EXPORT_FILE_PATH = "src/resource/outfile.txt";
+    private final String IMPORT_FILE_PATH = "resource/data/dictionaries.txt";
+    private final String EXPORT_FILE_PATH = "resource/data/outfile.txt";
 
     /**
      * Type of command.
@@ -62,6 +62,7 @@ public class DictionaryManagement extends Dictionary {
             bw.close();
 
             System.out.println("Exported!");
+            System.out.println("File path: " + EXPORT_FILE_PATH);
         } catch (IOException e) {
             e.printStackTrace();
         }
