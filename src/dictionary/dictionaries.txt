@@ -1,0 +1,6 @@
+Go	đi
+Run	chạy
+Swim	bơi
+Fly	Bay
+School	Trường học
+Fly	Con ruồi
