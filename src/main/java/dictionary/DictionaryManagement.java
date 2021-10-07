@@ -22,6 +22,9 @@ public class DictionaryManagement extends Dictionary {
     private final String url =
             "https://script.google.com/macros/s/AKfycbz_g0cKMWhvQsyk4n83kwywXZRVauZ-Pjor6LHy9ZbsGM_Szia83P4DMySl34HevphM9w/exec";
 
+    public DictionaryManagement() {
+        importFromFile();
+    }
     /** Import dictionary from file. */
     public void importFromFile() {
         File file = new File(IMPORT_FILE_PATH);
@@ -137,9 +140,11 @@ public class DictionaryManagement extends Dictionary {
      * @return list of words matching to target word, sorted in lexicographic order
      */
     public ArrayList<Word> dictionarySearcher(String searchWord) {
-        searchWord = searchWord.toLowerCase();
-
         ArrayList<Word> resultList = new ArrayList<>();
+        if (searchWord.equals("")) {
+            return resultList;
+        }
+        searchWord = searchWord.toLowerCase();
 
         for (Word word : wordList) {
             if (word.getSpelling().startsWith(searchWord)) {

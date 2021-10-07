@@ -1,3 +1,5 @@
+import dictionary.Dictionary;
+import dictionary.DictionaryManagement;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,7 +14,6 @@ public class DictionaryApplication extends Application {
   Button button = new Button();
   Stage window = new Stage();
   Scene scene1, scene2;
-
   public static void main(String[] args) {
     launch();
   }
