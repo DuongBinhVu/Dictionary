@@ -1,7 +1,0 @@
-go	đi
-run	chạy
-swim	bơi
-fly	bay
-school	trường học
-fly	con ruồi
-Merry Christmas	Giáng sinh vui vẻ
