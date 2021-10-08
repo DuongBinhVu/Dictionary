@@ -1,51 +1,44 @@
 package dictionary;
 
+import dictionary.Dictionary;
+import dictionary.DictionaryManagement;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class DictionaryApplication extends Application {
-  Button button = new Button();
-  Stage window = new Stage();
-  Scene scene1, scene2;
-  public static void main(String[] args) {
-    launch();
-  }
+    Stage window = new Stage();
 
-  @Override
-  public void start(Stage stage) throws IOException {
+    public static void main(String[] args) {
+        launch();
+    }
 
-    Parent root = FXMLLoader.load(getClass().getResource("/Dictionary.fxml"));
-    window = stage;
-    window.setScene(new Scene(root, 600, 400));
-        /*FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-
-        stage.setTitle("Hello!");
+    @Override
+    public void start(Stage stage) throws IOException {
+        Parent root1 = FXMLLoader.load(getClass().getResource("/Dictionary.fxml"));
         window = stage;
-        Button button1 = new Button("go to text1");
-        StackPane layout1 = new StackPane();
-        layout1.getChildren().add(button1);
-        scene1 = new Scene(layout1, 620, 440);
+        Scene scene1 = new Scene(root1, 600, 400);
         window.setScene(scene1);
-        Button button2 = new Button("go back");
-        StackPane layout2 = new StackPane();
-        layout2.getChildren().add(button2);
-        scene2 = new Scene(layout2, 620, 440);
-        button1.setOnAction(actionEvent -> {
+        Parent root2 = FXMLLoader.load(getClass().getResource("/TranslateText.fxml"));
+        Scene scene2 = new Scene(root2, 600, 400);
+        Button buttonTransText = (Button) scene1.lookup("#TransText");
+        buttonTransText.setOnAction(actionEvent -> {
             window.setScene(scene2);
         });
-        button2.setOnAction(actionEvent -> {
+        Button buttonSearch = (Button) scene2.lookup("#Search");
+        buttonSearch.setOnAction(actionEvent -> {
             window.setScene(scene1);
-        });*/
-    window.show();
-  }
+        });
 
+        window.show();
+    }
 
 }
