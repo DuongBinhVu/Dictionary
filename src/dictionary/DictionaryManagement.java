@@ -7,60 +7,65 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.Locale;
-import javax.speech.Engine;
 import javax.speech.Central;
 import javax.speech.EngineException;
 import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
 import java.io.*;
 import java.util.ArrayList;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class DictionaryManagement extends Dictionary {
-  private final String IMPORT_FILE_PATH = "resource/data/dictionaries.txt";
-  private final String EXPORT_FILE_PATH = "resource/data/outfile.txt";
+  private final String IMPORT_FILE_PATH = "resource/data/dictionary_final.json";
   private final String url =
       "https://script.google.com/macros/s/AKfycbz_g0cKMWhvQsyk4n83kwywXZRVauZ-Pjor6LHy9ZbsGM_Szia83P4DMySl34HevphM9w/exec";
 
+  public DictionaryManagement() {
+    importFromFile();
+  }
   /** Import dictionary from file. */
   public void importFromFile() {
-    File file = new File(IMPORT_FILE_PATH);
+    JSONParser parser = new JSONParser();
 
-    try {
-      BufferedReader br = new BufferedReader(new FileReader(file));
+    try (Reader reader = new FileReader(IMPORT_FILE_PATH)) {
+      JSONArray jsonArray = (JSONArray) parser.parse(reader);
+      for (Object o : jsonArray) {
+        Word newWord = new Word();
 
-      String line;
+        JSONObject obj = (JSONObject) o;
 
-      while ((line = br.readLine()) != null) {
-        String[] tmp = line.split("\t");
+        newWord.setWord((String) obj.get("word"));
+        newWord.setWord_type((String) obj.get("word_type"));
+        newWord.setWord_type((String) obj.get("pronounciation"));
 
-        this.wordList.add(new Word(tmp[0], tmp[1]));
+        ArrayList<String> tmp1 = new ArrayList<String>();
+        JSONArray arrays1 = (JSONArray) obj.get("eplanations");
+        Iterator<String> iterator1 = arrays1.iterator();
+
+        while (iterator1.hasNext()) {
+          tmp1.add(iterator1.next());
+        }
+        newWord.setExplanations(tmp1);
+
+        ArrayList<String> tmp2 = new ArrayList<String>();
+        JSONArray arrays2 = (JSONArray) obj.get("usages");
+        Iterator<String> iterator2 = arrays2.iterator();
+
+        while (iterator2.hasNext()) {
+          tmp2.add(iterator2.next());
+        }
+        newWord.setUsages(tmp2);
+
+        wordList.add(newWord);
       }
-
-      br.close();
-
-      System.out.println("Imported!");
     } catch (IOException e) {
       e.printStackTrace();
-    }
-  }
-
-  /** Export dictionary to file. */
-  public void exportToFile() {
-    File file = new File(EXPORT_FILE_PATH);
-
-    try {
-      BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-
-      for (Word word : wordList) {
-        bw.write(word.getTrueForm() + "\t" + word.getMeaning() + "\n");
-      }
-
-      bw.close();
-
-      System.out.println("Exported!");
-      System.out.println("File path: " + EXPORT_FILE_PATH);
-    } catch (IOException e) {
+    } catch (ParseException e) {
       e.printStackTrace();
     }
   }
@@ -82,42 +87,32 @@ public class DictionaryManagement extends Dictionary {
   /**
    * Remove a word from dictionary.
    *
-   * @param removingWord removing Word, its meaning is empty in case of removing all homographs.
+   * @param removingWord removing Word.
    * @return result state
    */
   public String removeWord(Word removingWord) {
-
-    if (removingWord.isMeaning("")) {
-      if (wordList.removeIf(word -> word.isSpelling(removingWord))) {
-        return "Removed all homographs!";
-      } else {
-        return "Not found!";
-      }
+    if (wordList.removeIf(word -> word.isSpelling(removingWord))) {
+      return "Removed!";
     } else {
-      if (wordList.removeIf(word -> word.isEquals(removingWord))) {
-        return "Removed!";
-      } else {
-        return "Not found!";
-      }
+      return "Not found!";
     }
   }
 
   /**
    * Edit a word in dictionary.
    *
-   * @param editingWord old word
    * @param newWord new word
    * @return result state
    */
-  public String editWord(Word editingWord, Word newWord) {
+  public String editWord(Word newWord) {
 
     boolean isFound = false;
 
     for (int i = 0; i < wordList.size(); i++) {
-      if (wordList.get(i).isEquals(editingWord)) {
+      if (wordList.get(i).isSpelling(newWord)) {
         wordList.set(i, newWord);
-
         isFound = true;
+        break;
       }
     }
 
@@ -135,29 +130,52 @@ public class DictionaryManagement extends Dictionary {
    * @return list of words matching to target word, sorted in lexicographic order
    */
   public ArrayList<Word> dictionarySearcher(String searchWord) {
+    ArrayList<Word> resultList = new ArrayList<>();
+    if (searchWord.equals("")) {
+      return resultList;
+    }
     searchWord = searchWord.toLowerCase();
 
-    ArrayList<Word> resultList = new ArrayList<>();
-
     for (Word word : wordList) {
-      if (word.getSpelling().startsWith(searchWord)) {
+      if (word.getWord().startsWith(searchWord)) {
         resultList.add(word);
       }
     }
 
-    resultList.sort(Comparator.comparing(Word::getSpelling));
+    resultList.sort(Comparator.comparing(Word::getWord));
+    return resultList;
+  }
+
+  /**
+   * search words which is different from target word at no more than 2 positions.
+   * @param searchWord
+   * @return list of words
+   */
+  public ArrayList<Word> dictionaryFuzzySearch(String searchWord) {
+    ArrayList<Word> resultList = new ArrayList<>();
+    if (searchWord.equals("")) {
+      return resultList;
+    }
+    searchWord = searchWord.toLowerCase();
+    for (Word word : wordList) {
+      if (word.levenshteinDistance(searchWord) <= 2) {
+        resultList.add(word);
+      }
+    }
+
     return resultList;
   }
 
   /**
    * text to speech
+   *
    * @param text input text
    * @throws EngineException
    */
   public void textToSpeech(String text) throws EngineException {
-    try
-    {
-      System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us" + ".cmu_us_kal.KevinVoiceDirectory");
+    try {
+      System.setProperty(
+          "freetts.voices", "com.sun.speech.freetts.en.us" + ".cmu_us_kal.KevinVoiceDirectory");
       Central.registerEngineCentral("com.sun.speech.freetts" + ".jsapi.FreeTTSEngineCentral");
       Synthesizer synthesizer = Central.createSynthesizer(new SynthesizerModeDesc(Locale.US));
       synthesizer.allocate();
@@ -165,17 +183,15 @@ public class DictionaryManagement extends Dictionary {
       synthesizer.speakPlainText(text, null);
       synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
       synthesizer.deallocate();
-    }
-    catch (Exception e)
-    {
+    } catch (Exception e) {
       e.printStackTrace();
     }
   }
 
   /**
-   * translate a text.
-   * call translate("en", "vi", text) to translate form english to vietnamese
-   * call translate("vi", "en", text) to translate form vietnamese to english
+   * translate a text. call translate("en", "vi", text) to translate form english to vietnamese call
+   * translate("vi", "en", text) to translate form vietnamese to english
+   *
    * @param langFrom
    * @param langTo
    * @param text
@@ -183,10 +199,14 @@ public class DictionaryManagement extends Dictionary {
    * @throws IOException
    */
   public String translate(String langFrom, String langTo, String text) throws IOException {
-    String urlStr = this.url +
-            "?q=" + URLEncoder.encode(text, "UTF-8") +
-            "&target=" + langTo +
-            "&source=" + langFrom;
+    String urlStr =
+        this.url
+            + "?q="
+            + URLEncoder.encode(text, "UTF-8")
+            + "&target="
+            + langTo
+            + "&source="
+            + langFrom;
     URL url = new URL(urlStr);
     StringBuilder response = new StringBuilder();
     HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -199,5 +219,4 @@ public class DictionaryManagement extends Dictionary {
     in.close();
     return response.toString();
   }
-
 }

@@ -1,89 +1,73 @@
 package dictionary;
 
-import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Word {
-  // *** Class Variables ***
-  /** Spelling of the word (lower case). */
-  private String spelling;
+  private String word;
+  private String word_type;
+  private ArrayList<String> explanations;
+  private ArrayList<String> usages;
+  private String pronunciation;
 
-  /** Meaning of the word. */
-  private String meaning;
-
-  /** Spelling of the word (true form - input form). */
-  private String trueForm;
-
-  // *** Setter, Getter Methods ***
-
-  public void setSpelling(String spelling) {
-    this.spelling = spelling;
+  public String getWord() {
+    return word;
   }
 
-  public void setMeaning(String meaning) {
-    this.meaning = meaning;
+  public void setWord(String word) {
+    this.word = word;
   }
 
-  public void setTrueForm(String trueForm) {
-    this.trueForm = trueForm;
+  public String getWord_type() {
+    return word_type;
   }
 
-  public String getSpelling() {
-    return this.spelling;
+  public void setWord_type(String word_type) {
+    this.word_type = word_type;
   }
 
-  public String getMeaning() {
-    return this.meaning;
+  public ArrayList<String> getExplanations() {
+    return explanations;
   }
 
-  public String getTrueForm() {
-    return this.trueForm;
+  public void setExplanations(ArrayList<String> explanations) {
+    this.explanations = explanations;
   }
 
-  // *** Class Methods ***
+  public ArrayList<String> getUsages() {
+    return usages;
+  }
 
-  /** Constructor. */
+  public void setUsages(ArrayList<String> usages) {
+    this.usages = usages;
+  }
+
+  public String getPronunciation() {
+    return pronunciation;
+  }
+
+  public void setPronunciation(String pronunciation) {
+    this.pronunciation = pronunciation;
+  }
+
+  public Word(
+      String word,
+      String word_type,
+      ArrayList<String> explanations,
+      ArrayList<String> usages,
+      String pronunciation) {
+    this.word = word;
+    this.word_type = word_type;
+    this.explanations = explanations;
+    this.usages = usages;
+    this.pronunciation = pronunciation;
+  }
+
   public Word() {
-    this.spelling = "";
-    this.meaning = "";
-    this.trueForm = "";
-  }
-
-  /**
-   * Constructor with parameters.
-   *
-   * @param trueForm input spelling of the word
-   * @param meaning meaning of the word
-   */
-  public Word(String trueForm, String meaning) {
-    this.meaning = meaning;
-    this.trueForm = trueForm;
-    this.spelling = trueForm.toLowerCase();
-  }
-
-  /** Read word from screen. */
-  public void readWord() {
-    Scanner scanner = new Scanner(System.in);
-
-    String[] reader = scanner.nextLine().split("\t");
-
-    this.trueForm = reader[0];
-    this.meaning = reader[1];
-    this.spelling = this.trueForm.toLowerCase();
-  }
-
-  /** Write word to screen. */
-  public void writeWord() {
-    System.out.println(trueForm + "\t" + meaning);
-  }
-
-  /**
-   * Check this word spelling.
-   *
-   * @param spelling input spelling
-   * @return if same or not
-   */
-  public Boolean isSpelling(String spelling) {
-    return this.spelling.equals(spelling);
+    this.word = "";
+    this.word_type = "";
+    this.explanations = new ArrayList<String>();
+    this.usages = new ArrayList<String>();
+    this.pronunciation = "";
   }
 
   /**
@@ -93,37 +77,30 @@ public class Word {
    * @return if same or not
    */
   public Boolean isSpelling(Word thatWord) {
-    return this.spelling.equals(thatWord.getSpelling());
+    return this.word.equals(thatWord.getWord());
   }
 
   /**
-   * Check this word meaning.
-   *
-   * @param meaning input meaning
-   * @return if same or not
+   * compute the levenshtein distance of two word.
+   * @param targetWord
+   * @return the levenshtein distance of two word
    */
-  public Boolean isMeaning(String meaning) {
-    return this.meaning.equals(meaning);
-  }
+  public int levenshteinDistance(String targetWord) {
+    String str1 = this.word;
+    String str2 = targetWord;
+    int m = str1.length();
+    int n = str2.length();
+    int[][] dn = new int[m + 1][n + 1];
 
-  /**
-   * Compare two words meaning.
-   *
-   * @param thatWord input word
-   * @return if same or not
-   */
-  public Boolean isMeaning(Word thatWord) {
-    return this.meaning.equals(thatWord.getMeaning());
-  }
+    for (var i = 0; i <= m; ++i) {
+      for (var j = 0; j <= n; ++j) {
+        if (i == 0) dn[0][j] = j;
+        else if (j == 0) dn[i][0] = i;
+        else if (str1.charAt(i - 1) == str2.charAt(j - 1)) dn[i][j] = dn[i - 1][j - 1];
+        else dn[i][j] = 1 + Math.min(dn[i - 1][j], Math.min(dn[i][j - 1], dn[i - 1][j - 1]));
+      }
+    }
 
-  /**
-   * Compare two words are similar or not.
-   *
-   * @param thatWord input word
-   * @return if same or not
-   */
-  public Boolean isEquals(Word thatWord) {
-    return this.spelling.equals(thatWord.getSpelling())
-        && this.meaning.equals(thatWord.getMeaning());
+    return dn[m][n];
   }
 }
