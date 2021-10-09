@@ -14,7 +14,7 @@
    <children>
       <ImageView fitHeight="401.0" fitWidth="600.0">
          <image>
-            <Image url="@../../resource/image/bg.png" />
+            <Image url="@../../resource/data/bg.png" />
          </image>
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="36.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
@@ -44,7 +44,7 @@
             <Font size="30.0" />
          </font>
       </Text>
-      <Text fx:id="sound" fill="#d06010" layoutX="275.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="287.515625">
+      <Text fx:id="sound" fill="#d06010" layoutX="331.0" layoutY="92.0" onMouseClicked="#ListenWord" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="176.0">
          <font>
             <Font size="16.0" />
          </font>

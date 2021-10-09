@@ -11,15 +11,19 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import javax.speech.EngineException;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class Control {
-    DictionaryManagement Dicmana = new DictionaryManagement();
+    private DictionaryManagement Dicmana = new DictionaryManagement();
+    private String WordNow;
     @FXML
     private TextField SubmitS;
     @FXML
@@ -27,23 +31,31 @@ public class Control {
     @FXML
     private ListView<String> ListWord;
     @FXML
-    private Text Word;
+    private Text TextWord;
     @FXML
     private Text sound;
     @FXML
     private TextArea meaning;
 
     public void search(KeyEvent event) {
-        String Word = SubmitS.getText();
-        ArrayList<dictionary.Word> resultList = Dicmana.dictionarySearcher(Word);
+        KeyCode keyCode = event.getCode();
+        if (keyCode == KeyCode.ENTER) {
+            this.suggest(this.SubmitS.getText());
+        } else if (keyCode.isLetterKey()) {
+            this.suggest(this.SubmitS.getText().concat(keyCode.toString().trim()));
+        }
+    }
+
+    public void suggest(String WordSearch) {
+        ArrayList<dictionary.Word> resultList = this.Dicmana.dictionarySearcher(WordSearch);
         ArrayList<String> wordsFound = new ArrayList<String>();
         for (int i = 0; i < resultList.size(); i++) {
             wordsFound.add(resultList.get(i).getWord());
         }
         ObservableList<String> items = FXCollections.observableArrayList(wordsFound);
-        System.out.print(wordsFound.size());
         this.ListWord.setItems(items);
     }
+
     public void Submit(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = stage.getScene();
@@ -55,6 +67,7 @@ public class Control {
         if (resultList.size() == 0 || !resultList.get(0).getWord().equals(Word)) {
             TextWord.setText("No Result");
         } else {
+            this.WordNow = resultList.get(0).getWord();
             TextWord.setText(Word);
             ArrayList<String> explanations = resultList.get(0).getExplanations();
             WordSound.setText(resultList.get(0).getPronunciation());
@@ -84,7 +97,10 @@ public class Control {
         ObservableList<String> items = FXCollections.observableArrayList(wordsFound);
         System.out.print(wordsFound.size());
         this.ListWord.setItems(items);
-    }
 
+    }
+    public void ListenWord(MouseEvent event) throws EngineException {
+        Dicmana.textToSpeech(this.WordNow);
+    }
 
 }

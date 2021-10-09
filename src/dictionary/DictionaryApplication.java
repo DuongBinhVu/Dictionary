@@ -37,7 +37,6 @@ public class DictionaryApplication extends Application {
         buttonSearch.setOnAction(actionEvent -> {
             window.setScene(scene1);
         });
-
         window.show();
     }
 

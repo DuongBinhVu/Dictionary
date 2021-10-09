@@ -13,7 +13,7 @@
     <children>
         <ImageView fitHeight="400.0" fitWidth="600.0">
             <image>
-                <Image url="@../../resource/image/bg.png" />
+                <Image url="@../../Dictionary/resource/image/bg.png" />
             </image>
         </ImageView>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="36.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />

@@ -41,7 +41,7 @@ public class DictionaryManagement extends Dictionary {
 
         newWord.setWord((String) obj.get("word"));
         newWord.setWord_type((String) obj.get("word_type"));
-        newWord.setWord_type((String) obj.get("pronounciation"));
+        newWord.setPronunciation((String) obj.get("pronounciation"));
 
         ArrayList<String> tmp1 = new ArrayList<String>();
         JSONArray arrays1 = (JSONArray) obj.get("eplanations");
