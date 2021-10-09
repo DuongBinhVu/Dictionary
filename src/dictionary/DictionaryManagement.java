@@ -154,7 +154,7 @@ public class DictionaryManagement extends Dictionary {
   public ArrayList<Word> dictionaryFuzzySearch(String searchWord) {
     ArrayList<Word> resultList = new ArrayList<>();
     if (searchWord.equals("")) {
-      return resultList;
+      return wordList;
     }
     searchWord = searchWord.toLowerCase();
     for (Word word : wordList) {

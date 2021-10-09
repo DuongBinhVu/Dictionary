@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.image.*?>
@@ -11,7 +12,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.Control">
    <children>
-      <ImageView fitHeight="400.0" fitWidth="600.0">
+      <ImageView fitHeight="401.0" fitWidth="600.0">
          <image>
             <Image url="@../../resource/image/bg.png" />
          </image>
@@ -22,10 +23,32 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <Button layoutY="36.0" mnemonicParsing="false" text="Tra từ" underline="true" />
-      <Button fx:id="TransText" layoutX="47.0" layoutY="36.0" mnemonicParsing="false" text="Dịch đoạn văn" />
-      <Button layoutX="139.0" layoutY="36.0" mnemonicParsing="false" text="Quản lý từ điển" />
-      <TextField fx:id="SubmitS" layoutX="206.0" layoutY="112.0" prefHeight="25.0" prefWidth="171.0" />
-      <Button layoutX="266.0" layoutY="162.0" mnemonicParsing="false" onAction="#Submit" text="Submit" />
+      <Button layoutY="36.0" mnemonicParsing="false" text="Tra từ" textFill="#e15353" underline="true" AnchorPane.topAnchor="36.0" />
+      <Button fx:id="TransText" focusTraversable="false" layoutX="47.0" layoutY="36.0" mnemonicParsing="false" text="Dịch đoạn văn" textFill="#e15353" />
+      <Button focusTraversable="false" layoutX="139.0" layoutY="36.0" mnemonicParsing="false" text="Quản lý từ điển" textFill="#e15353" />
+      <TextField fx:id="SubmitS" layoutY="61.0" onKeyPressed="#search" prefHeight="25.0" prefWidth="182.0" />
+      <Button layoutX="182.0" layoutY="61.0" mnemonicParsing="false" onAction="#Submit" prefHeight="25.0" prefWidth="55.0" text="Submit" textFill="#0c9e55" />
+      <ListView fx:id="ListWord" layoutY="86.0" prefHeight="315.0" prefWidth="236.0">
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                <MenuItem mnemonicParsing="false" text="xem" />
+                  <MenuItem mnemonicParsing="false" text="sửa" />
+                  <MenuItem mnemonicParsing="false" text="xóa" />
+              </items>
+            </ContextMenu>
+         </contextMenu>
+      </ListView>
+      <Text fx:id="Word" fill="#d70f5c" layoutX="251.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="335.0">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
+      <Text fx:id="sound" fill="#d06010" layoutX="275.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="287.515625">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <TextArea fx:id="meaning" layoutX="236.0" layoutY="101.0" prefHeight="216.0" prefWidth="364.0" />
    </children>
 </AnchorPane>

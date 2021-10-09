@@ -22,9 +22,9 @@
                 <Font size="18.0" />
             </font>
         </Text>
-        <Button fx:id="Search" layoutY="36.0" mnemonicParsing="false" text="Tra từ" />
+        <Button fx:id="Search" focusTraversable="false" layoutY="36.0" mnemonicParsing="false" text="Tra từ" />
         <Button graphicTextGap="5.0" layoutX="47.0" layoutY="36.0" mnemonicParsing="false" text="Dịch đoạn văn" underline="true" />
-        <Button layoutX="139.0" layoutY="36.0" mnemonicParsing="false" text="Quản lý từ điển" />
+        <Button focusTraversable="false" layoutX="139.0" layoutY="36.0" mnemonicParsing="false" text="Quản lý từ điển" />
       <TextField layoutX="47.0" layoutY="77.0" prefHeight="126.0" prefWidth="496.0" />
       <Button layoutX="259.0" layoutY="210.0" mnemonicParsing="false" text="Translate" />
       <TextArea layoutX="47.0" layoutY="241.0" prefHeight="126.0" prefWidth="489.0" />
