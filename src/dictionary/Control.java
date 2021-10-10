@@ -23,6 +23,8 @@ import javax.speech.EngineException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static javafx.scene.input.KeyCode.DELETE;
+
 public class Control {
     private DictionaryManagement Dicmana = new DictionaryManagement();
     private ArrayList<dictionary.Word> resultList = new ArrayList<dictionary.Word>();
@@ -40,6 +42,8 @@ public class Control {
     private Text sound;
     @FXML
     private TextArea meaning;
+    @FXML
+    private Text ShowListen;
 
     public Control() throws EngineException {
     }
@@ -48,8 +52,22 @@ public class Control {
         KeyCode keyCode = event.getCode();
         if (keyCode == KeyCode.ENTER) {
             this.suggest(this.SubmitS.getText());
-        } else if (keyCode.isLetterKey()) {
+        } else if (keyCode.isLetterKey() || keyCode == KeyCode.BACK_SPACE || keyCode == KeyCode.DELETE) {
             this.suggest(this.SubmitS.getText().concat(keyCode.toString().trim()));
+        }
+    }
+
+    public void delete(KeyEvent event) {
+        KeyCode keyCode = event.getCode();
+        if (keyCode == KeyCode.BACK_SPACE || keyCode == KeyCode.DELETE) {
+            this.suggest(this.SubmitS.getText());
+            if (this.SubmitS.getText().equals("")) {
+                this.WordNow.setWord("");
+                this.TextWord.setText("");
+                this.ShowListen.setText("");
+                this.sound.setText("");
+                this.meaning.setText("");
+            }
         }
     }
 
@@ -65,6 +83,7 @@ public class Control {
 
     public void ShowWord(Word WordS) {
         this.WordNow = WordS;
+        this.ShowListen.setText("[Listen]");
         this.TextWord.setText(WordS.getWord());
         this.sound.setText(WordS.getPronunciation());
         ArrayList<String> tmp;
@@ -104,9 +123,23 @@ public class Control {
         Dicmana.textToSpeech(this.WordNow.getWord());
     }
     public void WordClicked(MouseEvent event) {
+        if (resultList.size() == 0) {
+            return;
+        }
         if (event.getButton() == MouseButton.SECONDARY) {
             this.choosingWord = this.ListWord.getSelectionModel().getSelectedItem();
             this.choosingWord = this.choosingWord.toLowerCase();
+        }
+        else {
+            this.choosingWord = this.ListWord.getSelectionModel().getSelectedItem();
+            this.choosingWord = this.choosingWord.toLowerCase();
+            for (int i = 0; i < resultList.size(); i++) {
+                if (resultList.get(i).getWord().equals(this.choosingWord)) {
+                    this.ShowWord(resultList.get(i));
+                    return;
+                }
+            }
+
         }
     }
     public void ButtonShow(ActionEvent event) {
@@ -121,6 +154,7 @@ public class Control {
         for (int i = 0; i < resultList.size(); i++) {
             if (resultList.get(i).getWord().equals(this.choosingWord)) {
                 this.Dicmana.removeWord(resultList.get(i));
+                this.suggest(this.SubmitS.getText());
                 return;
             }
         }

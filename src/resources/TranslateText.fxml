@@ -11,24 +11,25 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.ControlTranslateText">
     <children>
-        <ImageView fitHeight="400.0" fitWidth="600.0">
-            <image>
-                <Image url="@../../Dictionary/resource/image/bg.png" />
-            </image>
-        </ImageView>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="36.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="36.0" stroke="BLACK" strokeType="INSIDE" width="601.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e1f0ff" height="367.0" layoutY="36.0" stroke="BLACK" strokeType="INSIDE" width="601.0" />
         <Text fill="#6b2424" layoutX="267.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CLOWN3">
             <font>
                 <Font size="18.0" />
             </font>
         </Text>
-        <Button fx:id="Search" focusTraversable="false" layoutY="36.0" mnemonicParsing="false" text="Tra từ" />
-        <Button graphicTextGap="5.0" layoutX="47.0" layoutY="36.0" mnemonicParsing="false" text="Dịch đoạn văn" underline="true" />
-        <Button focusTraversable="false" layoutX="139.0" layoutY="36.0" mnemonicParsing="false" text="Quản lý từ điển" />
-      <TextField fx:id="Text" alignment="TOP_LEFT" layoutX="47.0" layoutY="77.0" prefHeight="126.0" prefWidth="496.0" />
-      <Button layoutX="259.0" layoutY="210.0" mnemonicParsing="false" onAction="#Trans" text="Translate" />
-      <TextArea fx:id="TextTrans" layoutX="51.0" layoutY="241.0" prefHeight="126.0" prefWidth="489.0" />
-      <Button layoutX="543.0" layoutY="178.0" mnemonicParsing="false" onAction="#LisText" text="Listen" textFill="#126839" />
-      <Button layoutX="536.0" layoutY="342.0" mnemonicParsing="false" onAction="#LisTrans" text="Listen" textFill="#0c5e34" />
+        <Button fx:id="Search" focusTraversable="false" layoutY="36.0" mnemonicParsing="false" text="Tra từ" textFill="#e15353" />
+        <Button graphicTextGap="5.0" layoutX="47.0" layoutY="36.0" mnemonicParsing="false" text="Dịch đoạn văn" textFill="#e15353" underline="true" />
+        <Button focusTraversable="false" layoutX="139.0" layoutY="36.0" mnemonicParsing="false" text="Quản lý từ điển" textFill="#e15353" />
+      <TextField fx:id="Text" alignment="TOP_LEFT" layoutX="56.0" layoutY="101.0" prefHeight="126.0" prefWidth="489.0" />
+      <Button layoutX="257.0" layoutY="235.0" mnemonicParsing="false" onAction="#Trans" text="Translate" textFill="#d7226a">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <TextArea fx:id="TextTrans" layoutX="56.0" layoutY="269.0" prefHeight="126.0" prefWidth="489.0" />
+      <Button layoutX="545.0" layoutY="195.0" mnemonicParsing="false" onAction="#LisText" text="Listen" textFill="#283bb8" />
+      <Button layoutX="545.0" layoutY="364.0" mnemonicParsing="false" onAction="#LisTrans" text="Listen" textFill="#283bb8" />
+      <Button fx:id="VTE" layoutX="188.0" layoutY="69.0" mnemonicParsing="false" onAction="#ViToEn" prefHeight="25.0" prefWidth="64.0" text="VI - EN" textFill="#008949" underline="true" />
+      <Button fx:id="ETV" layoutX="321.0" layoutY="69.0" mnemonicParsing="false" onAction="#EnToVi" prefHeight="25.0" prefWidth="64.0" text="EN - VI" textFill="#008949" />
     </children>
 </AnchorPane>

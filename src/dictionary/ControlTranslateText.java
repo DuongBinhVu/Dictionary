@@ -16,23 +16,26 @@ import javax.speech.EngineException;
 import java.io.IOException;
 
 public class ControlTranslateText {
+    private DictionaryManagement Dicmana = new DictionaryManagement();
+    private String from = "vi";
+    private String to = "en";
     @FXML
     private Button Search;
-    private DictionaryManagement Dicmana = new DictionaryManagement();
     @FXML
     private TextField Text;
     @FXML
     private TextArea TextTrans;
+    @FXML
+    private Button VTE;
+    @FXML
+    private Button ETV;
 
     public ControlTranslateText() throws EngineException {
     }
 
     public void Trans(ActionEvent event) throws IOException {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = stage.getScene();
         String TextType = Text.getText();
-        TextArea Meaning = (TextArea) scene.lookup("#TextTrans");
-        Meaning.setText(Dicmana.translate("vi", "en", TextType));
+        this.TextTrans.setText(Dicmana.translate(from, to, TextType));
     }
     public void LisTrans(ActionEvent event) throws EngineException {
         String TextTr = TextTrans.getText();
@@ -41,5 +44,17 @@ public class ControlTranslateText {
     public void LisText(ActionEvent event) throws EngineException {
         String TextType = Text.getText();
         Dicmana.textToSpeech(TextType);
+    }
+    public void EnToVi(ActionEvent event) {
+        from = "en";
+        to = "vi";
+        ETV.setUnderline(true);
+        VTE.setUnderline(false);
+    }
+    public void ViToEn(ActionEvent event) {
+        from = "vi";
+        to = "en";
+        VTE.setUnderline(true);
+        ETV.setUnderline(false);
     }
 }

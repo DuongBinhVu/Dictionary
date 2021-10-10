@@ -23,7 +23,7 @@ import org.json.simple.parser.ParseException;
 public class DictionaryManagement extends Dictionary {
   private final String IMPORT_FILE_PATH = "resource/data/dictionary_final.json";
   private final String url =
-      "https://script.google.com/macros/s/AKfycbz_g0cKMWhvQsyk4n83kwywXZRVauZ-Pjor6LHy9ZbsGM_Szia83P4DMySl34HevphM9w/exec";
+          "https://script.google.com/macros/s/AKfycbz_g0cKMWhvQsyk4n83kwywXZRVauZ-Pjor6LHy9ZbsGM_Szia83P4DMySl34HevphM9w/exec";
 
   public DictionaryManagement() throws EngineException {
     System.setProperty(
@@ -31,7 +31,10 @@ public class DictionaryManagement extends Dictionary {
     Central.registerEngineCentral("com.sun.speech.freetts" + ".jsapi.FreeTTSEngineCentral");
     importFromFile();
   }
-  /** Import dictionary from file. */
+
+  /**
+   * Import dictionary from file.
+   */
   public void importFromFile() {
     JSONParser parser = new JSONParser();
 
@@ -65,6 +68,7 @@ public class DictionaryManagement extends Dictionary {
         newWord.setUsages(tmp2);
 
         wordList.add(newWord);
+        addNode(newWord);
       }
     } catch (IOException e) {
       e.printStackTrace();
@@ -84,6 +88,7 @@ public class DictionaryManagement extends Dictionary {
       return "Existing word";
     }
     wordList.add(addingWord);
+    addNode(addingWord);
     return "Added!";
   }
 
@@ -133,24 +138,22 @@ public class DictionaryManagement extends Dictionary {
    * @return list of words matching to target word, sorted in lexicographic order
    */
   public ArrayList<Word> dictionarySearcher(String searchWord) {
-    ArrayList<Word> resultList = new ArrayList<>();
     if (searchWord.equals("")) {
-      return resultList;
+      return new ArrayList<Word>();
     }
+
     searchWord = searchWord.toLowerCase();
 
-    for (Word word : wordList) {
-      if (word.getWord().startsWith(searchWord)) {
-        resultList.add(word);
-      }
-    }
+    resultSearcher.clear();
 
-    resultList.sort(Comparator.comparing(Word::getWord));
-    return resultList;
+    getAllWordInNode(searchNode(searchWord));
+
+    return resultSearcher;
   }
 
   /**
    * search words which is different from target word at no more than 2 positions.
+   *
    * @param searchWord
    * @return list of words
    */
@@ -200,13 +203,13 @@ public class DictionaryManagement extends Dictionary {
    */
   public String translate(String langFrom, String langTo, String text) throws IOException {
     String urlStr =
-        this.url
-            + "?q="
-            + URLEncoder.encode(text, "UTF-8")
-            + "&target="
-            + langTo
-            + "&source="
-            + langFrom;
+            this.url
+                    + "?q="
+                    + URLEncoder.encode(text, "UTF-8")
+                    + "&target="
+                    + langTo
+                    + "&source="
+                    + langFrom;
     URL url = new URL(urlStr);
     StringBuilder response = new StringBuilder();
     HttpURLConnection con = (HttpURLConnection) url.openConnection();
