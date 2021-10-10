@@ -25,7 +25,10 @@ public class DictionaryManagement extends Dictionary {
   private final String url =
       "https://script.google.com/macros/s/AKfycbz_g0cKMWhvQsyk4n83kwywXZRVauZ-Pjor6LHy9ZbsGM_Szia83P4DMySl34HevphM9w/exec";
 
-  public DictionaryManagement() {
+  public DictionaryManagement() throws EngineException {
+    System.setProperty(
+            "freetts.voices", "com.sun.speech.freetts.en.us" + ".cmu_us_kal.KevinVoiceDirectory");
+    Central.registerEngineCentral("com.sun.speech.freetts" + ".jsapi.FreeTTSEngineCentral");
     importFromFile();
   }
   /** Import dictionary from file. */
@@ -174,15 +177,12 @@ public class DictionaryManagement extends Dictionary {
    */
   public void textToSpeech(String text) throws EngineException {
     try {
-      System.setProperty(
-          "freetts.voices", "com.sun.speech.freetts.en.us" + ".cmu_us_kal.KevinVoiceDirectory");
-      Central.registerEngineCentral("com.sun.speech.freetts" + ".jsapi.FreeTTSEngineCentral");
       Synthesizer synthesizer = Central.createSynthesizer(new SynthesizerModeDesc(Locale.US));
       synthesizer.allocate();
-      synthesizer.resume();
+      //synthesizer.resume();
       synthesizer.speakPlainText(text, null);
-      synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
-      synthesizer.deallocate();
+      //synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
+      //synthesizer.deallocate();
     } catch (Exception e) {
       e.printStackTrace();
     }

@@ -25,8 +25,10 @@
         <Button fx:id="Search" focusTraversable="false" layoutY="36.0" mnemonicParsing="false" text="Tra từ" />
         <Button graphicTextGap="5.0" layoutX="47.0" layoutY="36.0" mnemonicParsing="false" text="Dịch đoạn văn" underline="true" />
         <Button focusTraversable="false" layoutX="139.0" layoutY="36.0" mnemonicParsing="false" text="Quản lý từ điển" />
-      <TextField layoutX="47.0" layoutY="77.0" prefHeight="126.0" prefWidth="496.0" />
-      <Button layoutX="259.0" layoutY="210.0" mnemonicParsing="false" text="Translate" />
-      <TextArea layoutX="47.0" layoutY="241.0" prefHeight="126.0" prefWidth="489.0" />
+      <TextField fx:id="Text" alignment="TOP_LEFT" layoutX="47.0" layoutY="77.0" prefHeight="126.0" prefWidth="496.0" />
+      <Button layoutX="259.0" layoutY="210.0" mnemonicParsing="false" onAction="#Trans" text="Translate" />
+      <TextArea fx:id="TextTrans" layoutX="51.0" layoutY="241.0" prefHeight="126.0" prefWidth="489.0" />
+      <Button layoutX="543.0" layoutY="178.0" mnemonicParsing="false" onAction="#LisText" text="Listen" textFill="#126839" />
+      <Button layoutX="536.0" layoutY="342.0" mnemonicParsing="false" onAction="#LisTrans" text="Listen" textFill="#0c5e34" />
     </children>
 </AnchorPane>

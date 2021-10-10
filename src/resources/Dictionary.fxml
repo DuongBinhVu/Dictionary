@@ -12,11 +12,6 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.Control">
    <children>
-      <ImageView fitHeight="401.0" fitWidth="600.0">
-         <image>
-            <Image url="@../../resource/data/bg.png" />
-         </image>
-      </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="36.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
       <Text fill="#6b2424" layoutX="267.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CLOWN3">
          <font>
@@ -28,18 +23,18 @@
       <Button focusTraversable="false" layoutX="139.0" layoutY="36.0" mnemonicParsing="false" text="Quản lý từ điển" textFill="#e15353" />
       <TextField fx:id="SubmitS" layoutY="61.0" onKeyPressed="#search" prefHeight="25.0" prefWidth="182.0" />
       <Button layoutX="182.0" layoutY="61.0" mnemonicParsing="false" onAction="#Submit" prefHeight="25.0" prefWidth="55.0" text="Submit" textFill="#0c9e55" />
-      <ListView fx:id="ListWord" layoutY="86.0" prefHeight="315.0" prefWidth="236.0">
+      <ListView fx:id="ListWord" layoutY="86.0" onMouseClicked="#WordClicked" prefHeight="315.0" prefWidth="236.0">
          <contextMenu>
             <ContextMenu>
               <items>
-                <MenuItem mnemonicParsing="false" text="xem" />
+                <MenuItem mnemonicParsing="false" onAction="#ButtonShow" text="xem" />
                   <MenuItem mnemonicParsing="false" text="sửa" />
-                  <MenuItem mnemonicParsing="false" text="xóa" />
+                  <MenuItem mnemonicParsing="false" onAction="#Erase" text="xóa" />
               </items>
             </ContextMenu>
          </contextMenu>
       </ListView>
-      <Text fx:id="Word" fill="#d70f5c" layoutX="251.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="335.0">
+      <Text fx:id="TextWord" fill="#d70f5c" layoutX="251.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="335.0">
          <font>
             <Font size="30.0" />
          </font>
