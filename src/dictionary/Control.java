@@ -52,8 +52,10 @@ public class Control {
         KeyCode keyCode = event.getCode();
         if (keyCode == KeyCode.ENTER) {
             this.suggest(this.SubmitS.getText());
-        } else if (keyCode.isLetterKey() || keyCode == KeyCode.BACK_SPACE || keyCode == KeyCode.DELETE) {
-            this.suggest(this.SubmitS.getText().concat(keyCode.toString().trim()));
+        } else if (keyCode.isLetterKey() || keyCode == KeyCode.BACK_SPACE || keyCode == KeyCode.DELETE
+                || keyCode.isDigitKey() || keyCode == KeyCode.MINUS || keyCode == KeyCode.EQUALS
+                || keyCode == KeyCode.PERIOD) {
+            this.suggest(this.SubmitS.getText().concat(keyCode.getChar().trim()));
         }
     }
 
@@ -103,13 +105,13 @@ public class Control {
         res += "\n";
         this.meaning.setText(res);
     }
+
     public void Submit(ActionEvent event) {
         String Word = SubmitS.getText();
         if (this.resultList.size() == 0) {
             this.TextWord.setText("No Result");
             return;
-        }
-        else {
+        } else {
             if (!this.resultList.get(0).getWord().equals(Word)) {
                 this.TextWord.setText("No Result");
                 return;
@@ -119,9 +121,11 @@ public class Control {
         }
 
     }
+
     public void ListenWord(MouseEvent event) throws EngineException {
         Dicmana.textToSpeech(this.WordNow.getWord());
     }
+
     public void WordClicked(MouseEvent event) {
         if (resultList.size() == 0) {
             return;
@@ -129,8 +133,7 @@ public class Control {
         if (event.getButton() == MouseButton.SECONDARY) {
             this.choosingWord = this.ListWord.getSelectionModel().getSelectedItem();
             this.choosingWord = this.choosingWord.toLowerCase();
-        }
-        else {
+        } else {
             this.choosingWord = this.ListWord.getSelectionModel().getSelectedItem();
             this.choosingWord = this.choosingWord.toLowerCase();
             for (int i = 0; i < resultList.size(); i++) {
@@ -142,6 +145,7 @@ public class Control {
 
         }
     }
+
     public void ButtonShow(ActionEvent event) {
         for (int i = 0; i < resultList.size(); i++) {
             if (resultList.get(i).getWord().equals(this.choosingWord)) {
@@ -150,6 +154,7 @@ public class Control {
             }
         }
     }
+
     public void Erase(ActionEvent event) {
         for (int i = 0; i < resultList.size(); i++) {
             if (resultList.get(i).getWord().equals(this.choosingWord)) {
