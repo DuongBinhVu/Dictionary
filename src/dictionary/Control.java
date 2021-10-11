@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,6 +21,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import javax.speech.EngineException;
+import javafx.scene.image.ImageView;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -43,28 +45,48 @@ public class Control {
     @FXML
     private TextArea meaning;
     @FXML
-    private Text ShowListen;
+    private ImageView ShowListen;
+    @FXML
+    private Group groupWord;
+    @FXML
+    private Label fuzzySearchLabel;
 
     public Control() throws EngineException {
     }
 
+    public void initListWord() {
+        this.resultList = this.Dicmana.dictionarySearcher("");
+        ArrayList<String> wordsFound = new ArrayList<String>();
+        for (int i = 0; i < this.resultList.size(); i++) {
+            wordsFound.add(this.resultList.get(i).getWord());
+        }
+        ObservableList<String> items = FXCollections.observableArrayList(wordsFound);
+        this.ListWord.setItems(items);
+    }
     public void search(KeyEvent event) {
+        this.groupWord.toBack();
         KeyCode keyCode = event.getCode();
         if (keyCode == KeyCode.ENTER) {
             this.suggest(this.SubmitS.getText());
-        } else if (keyCode.isLetterKey() || keyCode == KeyCode.BACK_SPACE || keyCode == KeyCode.DELETE) {
-            this.suggest(this.SubmitS.getText().concat(keyCode.toString().trim()));
+        } else if (keyCode.isLetterKey() ||  keyCode.isDigitKey()) {
+            this.suggest(this.SubmitS.getText().concat(keyCode.getChar().trim()));
+        } else if (keyCode == KeyCode.BACK_SPACE || keyCode == KeyCode.DELETE) {
+            String tmp = this.SubmitS.getText();
+            if (tmp.isEmpty()) {
+                this.suggest(tmp);
+            } else {
+                this.suggest(tmp.substring(0, tmp.length()));
+            }
         }
     }
 
     public void delete(KeyEvent event) {
         KeyCode keyCode = event.getCode();
         if (keyCode == KeyCode.BACK_SPACE || keyCode == KeyCode.DELETE) {
-            this.suggest(this.SubmitS.getText());
+            //this.suggest(this.SubmitS.getText());
             if (this.SubmitS.getText().equals("")) {
                 this.WordNow.setWord("");
                 this.TextWord.setText("");
-                this.ShowListen.setText("");
                 this.sound.setText("");
                 this.meaning.setText("");
             }
@@ -72,7 +94,15 @@ public class Control {
     }
 
     public void suggest(String WordSearch) {
+        this.fuzzySearchLabel.setText("");
         this.resultList = this.Dicmana.dictionarySearcher(WordSearch);
+        if (resultList.isEmpty()) {
+            this.fuzzySearchLabel.setText("Có phải ý bạn là:");
+            this.resultList = this.Dicmana.dictionaryFuzzySearch(WordSearch);
+            if (resultList.isEmpty()) {
+                this.fuzzySearchLabel.setText("Không có từ thích hợp! Vui lòng kiểm tra lại!");
+            }
+        }
         ArrayList<String> wordsFound = new ArrayList<String>();
         for (int i = 0; i < this.resultList.size(); i++) {
             wordsFound.add(this.resultList.get(i).getWord());
@@ -82,8 +112,8 @@ public class Control {
     }
 
     public void ShowWord(Word WordS) {
+        this.groupWord.toFront();
         this.WordNow = WordS;
-        this.ShowListen.setText("[Listen]");
         this.TextWord.setText(WordS.getWord());
         this.sound.setText(WordS.getPronunciation());
         ArrayList<String> tmp;

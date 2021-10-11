@@ -25,10 +25,10 @@ public class DictionaryApplication extends Application {
     public void start(Stage stage) throws IOException {
         Parent root1 = FXMLLoader.load(getClass().getResource("/Dictionary.fxml"));
         window = stage;
-        Scene scene1 = new Scene(root1, 600, 400);
+        Scene scene1 = new Scene(root1, 626, 486);
         window.setScene(scene1);
         Parent root2 = FXMLLoader.load(getClass().getResource("/TranslateText.fxml"));
-        Scene scene2 = new Scene(root2, 600, 400);
+        Scene scene2 = new Scene(root2, 626, 486);
         Button buttonTransText = (Button) scene1.lookup("#TransText");
         buttonTransText.setOnAction(actionEvent -> {
             window.setScene(scene2);
@@ -38,6 +38,7 @@ public class DictionaryApplication extends Application {
             window.setScene(scene1);
         });
         window.show();
+        return;
     }
 
 }

@@ -138,9 +138,6 @@ public class DictionaryManagement extends Dictionary {
      * @return list of words matching to target word, sorted in lexicographic order
      */
     public ArrayList<Word> dictionarySearcher(String searchWord) {
-        if (searchWord.equals("")) {
-            return new ArrayList<Word>();
-        }
 
         searchWord = searchWord.toLowerCase();
 
@@ -182,10 +179,7 @@ public class DictionaryManagement extends Dictionary {
         try {
             Synthesizer synthesizer = Central.createSynthesizer(new SynthesizerModeDesc(Locale.US));
             synthesizer.allocate();
-            //synthesizer.resume();
             synthesizer.speakPlainText(text, null);
-            //synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
-            //synthesizer.deallocate();
         } catch (Exception e) {
             e.printStackTrace();
         }
