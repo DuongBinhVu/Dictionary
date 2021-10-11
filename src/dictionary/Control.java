@@ -29,7 +29,7 @@ import static javafx.scene.input.KeyCode.DELETE;
 
 public class Control {
     private DictionaryManagement Dicmana = new DictionaryManagement();
-    private ArrayList<dictionary.Word> resultList = new ArrayList<dictionary.Word>();
+    private ArrayList<dictionary.Word> resultList = new ArrayList<Word>();
     private Word WordNow = new Word();
     private String choosingWord = new String();
     @FXML
@@ -54,21 +54,18 @@ public class Control {
     public Control() throws EngineException {
     }
 
-    public void initListWord() {
-        this.resultList = this.Dicmana.dictionarySearcher("");
-        ArrayList<String> wordsFound = new ArrayList<String>();
-        for (int i = 0; i < this.resultList.size(); i++) {
-            wordsFound.add(this.resultList.get(i).getWord());
-        }
-        ObservableList<String> items = FXCollections.observableArrayList(wordsFound);
-        this.ListWord.setItems(items);
+    public void initResultList() {
+        this.suggest("");
     }
+
     public void search(KeyEvent event) {
         this.groupWord.toBack();
         KeyCode keyCode = event.getCode();
         if (keyCode == KeyCode.ENTER) {
             this.suggest(this.SubmitS.getText());
-        } else if (keyCode.isLetterKey() ||  keyCode.isDigitKey()) {
+        } else if (keyCode.isLetterKey() ||  keyCode.isDigitKey()
+                || keyCode == KeyCode.MINUS || keyCode == KeyCode.EQUALS
+                || keyCode == KeyCode.PERIOD) {
             this.suggest(this.SubmitS.getText().concat(keyCode.getChar().trim()));
         } else if (keyCode == KeyCode.BACK_SPACE || keyCode == KeyCode.DELETE) {
             String tmp = this.SubmitS.getText();
@@ -149,27 +146,33 @@ public class Control {
         }
 
     }
+
     public void ListenWord(MouseEvent event) throws EngineException {
         Dicmana.textToSpeech(this.WordNow.getWord());
     }
+
     public void WordClicked(MouseEvent event) {
         if (resultList.size() == 0) {
             return;
         }
+
+        this.choosingWord = this.ListWord.getSelectionModel().getSelectedItem();
+
+        if (this.choosingWord == null) {
+            return;
+        }
+
+        this.choosingWord = this.choosingWord.toLowerCase();
+
         if (event.getButton() == MouseButton.SECONDARY) {
-            this.choosingWord = this.ListWord.getSelectionModel().getSelectedItem();
-            this.choosingWord = this.choosingWord.toLowerCase();
         }
         else {
-            this.choosingWord = this.ListWord.getSelectionModel().getSelectedItem();
-            this.choosingWord = this.choosingWord.toLowerCase();
             for (int i = 0; i < resultList.size(); i++) {
                 if (resultList.get(i).getWord().equals(this.choosingWord)) {
                     this.ShowWord(resultList.get(i));
                     return;
                 }
             }
-
         }
     }
     public void ButtonShow(ActionEvent event) {
@@ -189,5 +192,4 @@ public class Control {
             }
         }
     }
-
 }

@@ -100,6 +100,8 @@ public class DictionaryManagement extends Dictionary {
      */
     public String removeWord(Word removingWord) {
         if (wordList.removeIf(word -> word.isSpelling(removingWord))) {
+            deleteNode(searchNode(removingWord.getWord()));
+
             return "Removed!";
         } else {
             return "Not found!";
@@ -138,10 +140,15 @@ public class DictionaryManagement extends Dictionary {
      * @return list of words matching to target word, sorted in lexicographic order
      */
     public ArrayList<Word> dictionarySearcher(String searchWord) {
+        resultSearcher.clear();
+
+        if (searchWord.equals("")) {
+            getAllWordInNode(root);
+
+            return resultSearcher;
+        }
 
         searchWord = searchWord.toLowerCase();
-
-        resultSearcher.clear();
 
         getAllWordInNode(searchNode(searchWord));
 

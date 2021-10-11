@@ -133,4 +133,16 @@ public class Dictionary {
             getAllWordInNode(chill);
         }
     }
+
+    public void deleteNode(TrieNode node) {
+        if (node == null) {
+            return;
+        }
+
+        node.setIndexWord(null);
+
+        if (node.children.isEmpty()) {
+            node = null;
+        }
+    }
 }
