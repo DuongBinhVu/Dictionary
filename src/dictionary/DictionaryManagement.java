@@ -100,6 +100,8 @@ public class DictionaryManagement extends Dictionary {
      */
     public String removeWord(Word removingWord) {
         if (wordList.removeIf(word -> word.isSpelling(removingWord))) {
+            deleteNode(searchNode(removingWord.getWord()));
+
             return "Removed!";
         } else {
             return "Not found!";
