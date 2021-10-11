@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ContextMenu?>
@@ -28,11 +29,14 @@
                   <Font size="16.0" />
                </font>
             </Text>
-            <TextArea fx:id="meaning" layoutY="70.373046875" opacity="0.75" prefHeight="334.0" prefWidth="350.0" />
+            <TextArea fx:id="meaning" editable="false" layoutY="70.373046875" opacity="0.75" prefHeight="334.0" prefWidth="350.0" />
             <ImageView fx:id="ShowListen" fitHeight="25.0" fitWidth="21.0" layoutX="251.0" layoutY="40.0" onMouseClicked="#ListenWord" preserveRatio="true">
                <image>
                   <Image url="@image/speaker.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
          </children>
       </Group>
@@ -44,17 +48,29 @@
       <Button focusTraversable="false" layoutX="160.0" layoutY="5.0" mnemonicParsing="false" opacity="0.87" prefHeight="43.0" prefWidth="140.0" text="Tra từ" textFill="#221616" AnchorPane.topAnchor="5.0">
          <font>
             <Font name="Arial Bold" size="14.0" />
-         </font></Button>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
       <Button fx:id="TransText" focusTraversable="false" layoutX="313.0" layoutY="5.0" mnemonicParsing="false" opacity="0.87" prefHeight="43.0" prefWidth="151.0" text="Dịch đoạn văn" textFill="#362b2b">
          <font>
             <Font name="Arial Bold" size="14.0" />
-         </font></Button>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
       <Button focusTraversable="false" layoutX="230.0" layoutY="-35.0" mnemonicParsing="false" text="Quản lý từ điển" textFill="#e15353" />
-      <TextField fx:id="SubmitS" layoutX="14.0" layoutY="73.0" onKeyPressed="#search" prefHeight="25.0" prefWidth="182.0" />
+      <TextField fx:id="SubmitS" layoutX="14.0" layoutY="73.0" onKeyPressed="#search" prefHeight="25.0" prefWidth="182.0">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor></TextField>
       <Button layoutX="197.0" layoutY="73.0" mnemonicParsing="false" onAction="#Submit" opacity="0.75" prefHeight="25.0" prefWidth="55.0" text="Submit" textFill="#242625">
          <font>
             <Font name="Arial" size="12.0" />
-         </font></Button>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
       <ListView fx:id="ListWord" layoutX="14.0" layoutY="119.0" onEditStart="#initListWord" onMouseClicked="#WordClicked" opacity="0.75" prefHeight="359.0" prefWidth="236.0">
          <contextMenu>
             <ContextMenu>
@@ -65,6 +81,9 @@
                </items>
             </ContextMenu>
          </contextMenu>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </ListView>
       <Label fx:id="fuzzySearchLabel" layoutX="14.0" layoutY="102.0" />
       
