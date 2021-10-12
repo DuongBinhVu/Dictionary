@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="486.0" prefWidth="487.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.Control">
+<AnchorPane prefHeight="486.0" prefWidth="487.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dictionary.Control">
    <children>
       <Group fx:id="groupWord" layoutX="264.0" layoutY="73.626953125">
          <children>
             <Text fx:id="TextWord" fill="#d70f5c" layoutX="1.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="350.0">
                <font>
-                  <Font size="30.0" />
+                  <Font size="28.0" />
                </font>
             </Text>
             <Text fx:id="sound" fill="#d06010" layoutX="100.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="151.0">
@@ -21,7 +22,7 @@
                </font>
             </Text>
             <TextArea fx:id="meaning" editable="false" layoutY="70.373046875" opacity="0.75" prefHeight="334.0" prefWidth="350.0" />
-            <ImageView fx:id="ShowListen" fitHeight="25.0" fitWidth="21.0" layoutX="251.0" layoutY="40.0" onMouseClicked="#ListenWord" preserveRatio="true">
+            <ImageView fx:id="ShowListen" fitHeight="25.0" fitWidth="21.0" layoutX="330.0" layoutY="10.0" onMouseClicked="#ListenWord" preserveRatio="true">
                <image>
                   <Image url="@image/speaker.png" />
                </image>
@@ -31,27 +32,137 @@
             </ImageView>
          </children>
       </Group>
-      <ImageView fitHeight="486.0" fitWidth="626.0">
+      <Group fx:id="groupEdit" layoutX="0" layoutY="0">
+         <children>
+            <Text fx:id="WordEdit" fill="#d70f5c" layoutX="265.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="350.0">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Text>
+            <TextField fx:id="ProEdit" layoutX="252.0" layoutY="152.0" onKeyReleased="#TextProEdit" prefHeight="25.0" prefWidth="182.0">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextField>
+            <TextField fx:id="TypeEdit" layoutX="440.0" layoutY="152.0" onKeyReleased="#TextTypeEdit" prefHeight="25.0" prefWidth="176.0">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextField>
+            <Text fill="#802a09" layoutX="303.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pronunciation">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Text>
+            <Text fill="#802a09" layoutX="496.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Word Type">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Text>
+            <TextArea fx:id="ExplaneEdit" editable="true" layoutX="252.0" layoutY="206.0" onKeyReleased="#TextExpEdit" prefHeight="103.0" prefWidth="365.0">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextArea>
+            <TextArea fx:id="UsageEdit" editable="true" layoutX="252.0" layoutY="332.0" onKeyReleased="#TextUsgEdit" prefHeight="103.0" prefWidth="365.0">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextArea>
+            <Text fill="#802a09" layoutX="404.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Explanation" wrappingWidth="70.78369140625">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Text>
+            <Text fill="#802a09" layoutX="418.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usages">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Text>
+            <Button layoutX="414.0" layoutY="447.0" mnemonicParsing="false" onAction="#SaveEdit" text="Save">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+         </children>
+      </Group>
+      <Group fx:id="groupAdd" layoutX="0" layoutY="0">
+         <children>
+            <Text fill="#802a09" layoutX="331.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Word">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Text>
+            <TextArea fx:id="WordAdd" layoutX="368.0" layoutY="73.0" onKeyReleased="#TextWordAdd" prefHeight="25.0" prefWidth="169.0">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </TextArea>
+            <TextArea fx:id="ProAdd" layoutX="252.0" layoutY="142.0" onKeyReleased="#TextProAdd" prefHeight="25.0" prefWidth="182.0">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextArea>
+            <TextArea fx:id="TypeAdd" layoutX="440.0" layoutY="142.0" onKeyReleased="#TextTypeAdd" prefHeight="25.0" prefWidth="176.0">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextArea>
+            <Text fill="#802a09" layoutX="303.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pronunciation">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Text>
+            <Text fill="#802a09" layoutX="496.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Word Type">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Text>
+            <TextArea fx:id="ExpAdd" editable="true" layoutX="252.0" layoutY="206.0" onKeyReleased="#TextExpAdd" prefHeight="103.0" prefWidth="365.0">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextArea>
+            <TextArea fx:id="UsgAdd" editable="true" layoutX="252.0" layoutY="332.0" onKeyReleased="#TextUsgAdd" prefHeight="103.0" prefWidth="365.0">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextArea>
+            <Text fill="#802a09" layoutX="404.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Explanation" wrappingWidth="70.78369140625">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Text>
+            <Text fill="#802a09" layoutX="418.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usages">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Text>
+            <Button layoutX="414.0" layoutY="447.0" mnemonicParsing="false" onAction="#SaveAdd" text="Add">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+         </children>
+      </Group>
+      <ImageView fitHeight="486.0" fitWidth="626.0" layoutY="-8.0">
          <image>
             <Image url="@image/background.jpg" />
          </image>
       </ImageView>
-      <Button focusTraversable="false" layoutX="160.0" layoutY="5.0" mnemonicParsing="false" opacity="0.87" prefHeight="43.0" prefWidth="140.0" text="Tra từ" textFill="#221616" AnchorPane.topAnchor="5.0">
+      <Button layoutX="76.0" layoutY="5.0" mnemonicParsing="false" opacity="0.87" prefHeight="43.0" prefWidth="140.0" text="Tra từ" textFill="#221616" AnchorPane.topAnchor="5.0">
          <font>
             <Font name="Arial Bold" size="14.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="TransText" focusTraversable="false" layoutX="313.0" layoutY="5.0" mnemonicParsing="false" opacity="0.87" prefHeight="43.0" prefWidth="151.0" text="Dịch đoạn văn" textFill="#362b2b">
+      <Button fx:id="TransText" focusTraversable="false" layoutX="409.0" layoutY="5.0" mnemonicParsing="false" opacity="0.87" prefHeight="43.0" prefWidth="151.0" text="Dịch đoạn văn" textFill="#362b2b">
          <font>
             <Font name="Arial Bold" size="14.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button focusTraversable="false" layoutX="230.0" layoutY="-35.0" mnemonicParsing="false" text="Quản lý từ điển" textFill="#e15353" />
-      <TextField fx:id="SubmitS" layoutX="14.0" layoutY="73.0" onKeyPressed="#search" prefHeight="25.0" prefWidth="182.0">
+      <Button focusTraversable="false" layoutX="238.0" layoutY="5.0" mnemonicParsing="false" onAction="#AddW" prefHeight="43.0" prefWidth="151.0" text="Thêm dữ liệu">
+         <font>
+            <Font name="Arial Bold" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <TextField fx:id="SubmitS" layoutX="14.0" layoutY="73.0" onKeyReleased="#search" prefHeight="25.0" prefWidth="182.0">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor></TextField>
@@ -67,7 +178,7 @@
             <ContextMenu>
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#ButtonShow" text="xem" />
-                  <MenuItem mnemonicParsing="false" text="sửa" />
+                  <MenuItem mnemonicParsing="false" onAction="#Edit" text="sửa" />
                   <MenuItem mnemonicParsing="false" onAction="#Erase" text="xóa" />
                </items>
             </ContextMenu>
@@ -77,6 +188,7 @@
          </cursor>
       </ListView>
       <Label fx:id="fuzzySearchLabel" layoutX="14.0" layoutY="102.0" />
+
       
    </children>
 </AnchorPane>

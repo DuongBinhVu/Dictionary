@@ -37,14 +37,14 @@ public class ControlTranslateText {
     public ControlTranslateText() throws EngineException {
     }
 
-    public void LisTrans(MouseEvent event) throws EngineException {
+    /*public void LisTrans(MouseEvent event) throws EngineException {
         String TextTr = TextTrans.getText();
         Dicmana.textToSpeech(TextTr);
     }
     public void LisText(MouseEvent event) throws EngineException {
         String TextType = Text.getText();
         Dicmana.textToSpeech(TextType);
-    }
+    }*/
 
     public void EnToVi(MouseEvent event) throws IOException {
         from = "en";

@@ -3,6 +3,7 @@ package dictionary;
 import dictionary.Dictionary;
 import dictionary.DictionaryManagement;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -46,9 +47,7 @@ public class DictionaryApplication extends Application {
         Control temporaryControllerScene1 = loaderScene1.getController();
 
         temporaryControllerScene1.initResultList();
-
         window.show();
-        return;
     }
 
 }

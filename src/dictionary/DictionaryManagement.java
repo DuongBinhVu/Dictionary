@@ -117,7 +117,7 @@ public class DictionaryManagement extends Dictionary {
     public String editWord(Word newWord) {
 
         boolean isFound = false;
-
+        String WordEdit = newWord.getWord();
         for (int i = 0; i < wordList.size(); i++) {
             if (wordList.get(i).isSpelling(newWord)) {
                 wordList.set(i, newWord);
