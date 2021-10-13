@@ -87,6 +87,14 @@ public class Control {
 
     public void initResultList() {this.suggest("");}
 
+    public void offAll(ActionEvent event) {
+        this.groupEdit.toBack();
+        this.groupAdd.toBack();
+    }
+    public void setOff() {
+        this.groupEdit.toBack();
+        this.groupAdd.toBack();
+    }
     public void search(KeyEvent event) {
         this.groupEdit.toBack();
         this.groupWord.toBack();
