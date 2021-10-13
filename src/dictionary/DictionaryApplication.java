@@ -47,6 +47,11 @@ public class DictionaryApplication extends Application {
             window.setScene(scene1);
         });
 
+        Button buttonAdd = (Button) scene2.lookup("#Add2");
+        buttonAdd.setOnAction(actionEvent -> {
+            window.setScene(scene1);
+            temporaryControllerScene1.setOnAdd();
+        });
         window.show();
     }
 

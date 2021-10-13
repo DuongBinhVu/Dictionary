@@ -88,12 +88,19 @@ public class Control {
     public void initResultList() {this.suggest("");}
 
     public void offAll(ActionEvent event) {
+        this.groupWord.toBack();
         this.groupEdit.toBack();
         this.groupAdd.toBack();
     }
     public void setOff() {
+        this.groupWord.toBack();
         this.groupEdit.toBack();
         this.groupAdd.toBack();
+    }
+    public void setOnAdd() {
+        this.groupWord.toBack();
+        this.groupEdit.toBack();
+        this.groupAdd.toFront();
     }
     public void search(KeyEvent event) {
         this.groupEdit.toBack();
