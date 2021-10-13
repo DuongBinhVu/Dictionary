@@ -39,8 +39,6 @@ public class Control {
     private String ExpNow = "";
     private String UsgNow = "";
     @FXML
-    private ListView<String> testcukmank;
-    @FXML
     private TextField SubmitS;
     @FXML
     private Button TransText;
