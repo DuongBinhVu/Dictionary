@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -25,7 +26,9 @@ public class DictionaryApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         window = stage;
-
+        window.setTitle("Dictionary");
+        Image img = new Image("/image/logo.png");
+        window.getIcons().add(img);
         FXMLLoader loaderScene1 = new FXMLLoader(getClass().getResource("/Dictionary.fxml"));
         Scene scene1 = new Scene(loaderScene1.load(), 626, 486);
 
@@ -40,6 +43,7 @@ public class DictionaryApplication extends Application {
         buttonTransText.setOnAction(actionEvent -> {
             temporaryControllerScene1.setOff();
             window.setScene(scene2);
+
         });
 
         Button buttonSearch = (Button) scene2.lookup("#Search");

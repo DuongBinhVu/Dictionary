@@ -94,6 +94,8 @@ public class Control {
         this.groupWord.toBack();
         this.groupEdit.toBack();
         this.groupAdd.toBack();
+        this.SubmitS.setText("");
+        this.suggest("");
     }
     public void setOnAdd() {
         this.groupWord.toBack();
