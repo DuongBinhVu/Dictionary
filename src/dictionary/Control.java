@@ -265,8 +265,13 @@ public class Control {
         List1.add(s);
         WordNow.setUsages(List1);
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setContentText("succeeded");
+        alert.setContentText("edited!");
         alert.show();
+        this.WNow = "";
+        this.ProNow = "";
+        this.TypeNow = "";
+        this.ExpNow = "";
+        this.UsgNow = "";
     }
     public void AddW(ActionEvent event) {
         this.groupWord.toBack();
@@ -304,6 +309,16 @@ public class Control {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText(Dicmana.addWord(New));
         alert.show();
+        this.WNow = "";
+        this.ProNow = "";
+        this.TypeNow = "";
+        this.ExpNow = "";
+        this.UsgNow = "";
+        this.WordAdd.setText("");
+        this.ProAdd.setText("");
+        this.TypeAdd.setText("");
+        this.ExpAdd.setText("");
+        this.UsgAdd.setText("");
     }
 
 }
