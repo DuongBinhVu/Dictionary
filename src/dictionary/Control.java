@@ -157,13 +157,13 @@ public class Control {
         res += "\n";
         this.meaning.setText(res);
     }
+
     public void Submit(ActionEvent event) {
         String Word = SubmitS.getText();
         if (this.resultList.size() == 0) {
             this.TextWord.setText("No Result");
             return;
-        }
-        else {
+        } else {
             if (!this.resultList.get(0).getWord().equals(Word)) {
                 this.TextWord.setText("No Result");
                 return;
@@ -198,6 +198,7 @@ public class Control {
             this.ShowWord(WordNow);
         }
     }
+
     public void ButtonShow(ActionEvent event) {
         for (int i = 0; i < resultList.size(); i++) {
             if (resultList.get(i).getWord().equals(this.choosingWord)) {
@@ -207,6 +208,7 @@ public class Control {
             }
         }
     }
+
     public void Erase(ActionEvent event) {
         for (int i = 0; i < resultList.size(); i++) {
             if (resultList.get(i).getWord().equals(this.choosingWord)) {
