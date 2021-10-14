@@ -39,6 +39,8 @@ public class DictionaryApplication extends Application {
         Control temporaryControllerScene1 = loaderScene1.getController();
         temporaryControllerScene1.initResultList();
 
+        ControlTranslateText temporaryControllerScene2 = loaderScene2.getController();
+
         Button buttonTransText = (Button) scene1.lookup("#TransText");
         buttonTransText.setOnAction(actionEvent -> {
             temporaryControllerScene1.setOff();
@@ -48,11 +50,13 @@ public class DictionaryApplication extends Application {
 
         Button buttonSearch = (Button) scene2.lookup("#Search");
         buttonSearch.setOnAction(actionEvent -> {
+            temporaryControllerScene2.setOffInTrans();
             window.setScene(scene1);
         });
 
         Button buttonAdd = (Button) scene2.lookup("#Add2");
         buttonAdd.setOnAction(actionEvent -> {
+            temporaryControllerScene2.setOffInTrans();
             window.setScene(scene1);
             temporaryControllerScene1.setOnAdd();
         });

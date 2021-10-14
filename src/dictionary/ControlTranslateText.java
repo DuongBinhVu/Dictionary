@@ -41,7 +41,6 @@ public class ControlTranslateText {
         this.Text.setText("");
         this.TextTrans.setText("");
     }
-
     public void EnToVi(MouseEvent event) throws IOException {
         from = "en";
         to = "vi";
