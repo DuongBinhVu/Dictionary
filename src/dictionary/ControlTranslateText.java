@@ -24,7 +24,7 @@ public class ControlTranslateText {
     @FXML
     private Button Search;
     @FXML
-    private TextField Text;
+    private TextArea Text;
     @FXML
     private TextArea TextTrans;
     @FXML
@@ -37,14 +37,10 @@ public class ControlTranslateText {
     public ControlTranslateText() throws EngineException {
     }
 
-    /*public void LisTrans(MouseEvent event) throws EngineException {
-        String TextTr = TextTrans.getText();
-        Dicmana.textToSpeech(TextTr);
+    public void setOffInTrans() {
+        this.Text.setText("");
+        this.TextTrans.setText("");
     }
-    public void LisText(MouseEvent event) throws EngineException {
-        String TextType = Text.getText();
-        Dicmana.textToSpeech(TextType);
-    }*/
 
     public void EnToVi(MouseEvent event) throws IOException {
         from = "en";

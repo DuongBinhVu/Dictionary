@@ -43,10 +43,10 @@
                 <Font name="Arial Bold" size="14.0" />
             </font>
         </Button>
-      <TextField fx:id="Text" alignment="TOP_LEFT" layoutX="56.0" layoutY="89.0" opacity="0.8" prefHeight="138.0" prefWidth="512.0">
+      <TextArea fx:id="Text" editable="true" layoutX="56.0" layoutY="89.0" opacity="0.8" prefHeight="138.0" prefWidth="512.0">
          <cursor>
             <Cursor fx:constant="TEXT" />
-         </cursor></TextField>
+         </cursor></TextArea>
       <TextArea fx:id="TextTrans" editable="false" layoutX="56.0" layoutY="305.0" opacity="0.8" prefHeight="138.0" prefWidth="512.0">
          <cursor>
             <Cursor fx:constant="DEFAULT" />

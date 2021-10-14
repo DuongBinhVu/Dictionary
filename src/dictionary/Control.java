@@ -278,6 +278,8 @@ public class Control {
     public void AddW(ActionEvent event) {
         this.groupWord.toBack();
         this.groupEdit.toBack();
+        this.SubmitS.setText("");
+        this.suggest("");
         this.groupAdd.toFront();
     }
     public void TextWordAdd(KeyEvent event) {
