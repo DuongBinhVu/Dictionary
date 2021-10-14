@@ -7,8 +7,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -29,32 +31,37 @@ public class ControlTranslateText {
     private Button VTE;
     @FXML
     private Button ETV;
+    @FXML
+    private Label translating;
 
     public ControlTranslateText() throws EngineException {
     }
 
-    public void Trans(ActionEvent event) throws IOException {
-        String TextType = Text.getText();
-        this.TextTrans.setText(Dicmana.translate(from, to, TextType));
-    }
-    public void LisTrans(ActionEvent event) throws EngineException {
+    /*public void LisTrans(MouseEvent event) throws EngineException {
         String TextTr = TextTrans.getText();
         Dicmana.textToSpeech(TextTr);
     }
-    public void LisText(ActionEvent event) throws EngineException {
+    public void LisText(MouseEvent event) throws EngineException {
         String TextType = Text.getText();
         Dicmana.textToSpeech(TextType);
-    }
-    public void EnToVi(ActionEvent event) {
+    }*/
+
+    public void EnToVi(MouseEvent event) throws IOException {
         from = "en";
         to = "vi";
-        ETV.setUnderline(true);
-        VTE.setUnderline(false);
+        String TextType = Text.getText();
+        this.translating.toFront();
+        String translatedText = Dicmana.translate(from, to, TextType);
+        this.TextTrans.setText(translatedText);
+        this.translating.toBack();
     }
-    public void ViToEn(ActionEvent event) {
+    public void ViToEn(MouseEvent event) throws IOException {
         from = "vi";
         to = "en";
-        VTE.setUnderline(true);
-        ETV.setUnderline(false);
+        String TextType = Text.getText();
+        this.translating.toFront();
+        String translatedText = Dicmana.translate(from, to, TextType);
+        this.TextTrans.setText(translatedText);
+        this.translating.toBack();
     }
 }

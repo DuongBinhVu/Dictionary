@@ -117,7 +117,7 @@ public class DictionaryManagement extends Dictionary {
     public String editWord(Word newWord) {
 
         boolean isFound = false;
-
+        String WordEdit = newWord.getWord();
         for (int i = 0; i < wordList.size(); i++) {
             if (wordList.get(i).isSpelling(newWord)) {
                 wordList.set(i, newWord);
@@ -140,13 +140,15 @@ public class DictionaryManagement extends Dictionary {
      * @return list of words matching to target word, sorted in lexicographic order
      */
     public ArrayList<Word> dictionarySearcher(String searchWord) {
+        resultSearcher.clear();
+
         if (searchWord.equals("")) {
-            return new ArrayList<Word>();
+            getAllWordInNode(root);
+
+            return resultSearcher;
         }
 
         searchWord = searchWord.toLowerCase();
-
-        resultSearcher.clear();
 
         getAllWordInNode(searchNode(searchWord));
 
@@ -184,10 +186,7 @@ public class DictionaryManagement extends Dictionary {
         try {
             Synthesizer synthesizer = Central.createSynthesizer(new SynthesizerModeDesc(Locale.US));
             synthesizer.allocate();
-            //synthesizer.resume();
             synthesizer.speakPlainText(text, null);
-            //synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
-            //synthesizer.deallocate();
         } catch (Exception e) {
             e.printStackTrace();
         }

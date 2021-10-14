@@ -3,6 +3,7 @@ package dictionary;
 import dictionary.Dictionary;
 import dictionary.DictionaryManagement;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -23,19 +24,33 @@ public class DictionaryApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root1 = FXMLLoader.load(getClass().getResource("/Dictionary.fxml"));
         window = stage;
-        Scene scene1 = new Scene(root1, 600, 400);
+
+        FXMLLoader loaderScene1 = new FXMLLoader(getClass().getResource("/Dictionary.fxml"));
+        Scene scene1 = new Scene(loaderScene1.load(), 626, 486);
+
+        FXMLLoader loaderScene2 = new FXMLLoader(getClass().getResource("/TranslateText.fxml"));
+        Scene scene2 = new Scene(loaderScene2.load(), 626, 486);
+
         window.setScene(scene1);
-        Parent root2 = FXMLLoader.load(getClass().getResource("/TranslateText.fxml"));
-        Scene scene2 = new Scene(root2, 600, 400);
+        Control temporaryControllerScene1 = loaderScene1.getController();
+        temporaryControllerScene1.initResultList();
+
         Button buttonTransText = (Button) scene1.lookup("#TransText");
         buttonTransText.setOnAction(actionEvent -> {
+            temporaryControllerScene1.setOff();
             window.setScene(scene2);
         });
+
         Button buttonSearch = (Button) scene2.lookup("#Search");
         buttonSearch.setOnAction(actionEvent -> {
             window.setScene(scene1);
+        });
+
+        Button buttonAdd = (Button) scene2.lookup("#Add2");
+        buttonAdd.setOnAction(actionEvent -> {
+            window.setScene(scene1);
+            temporaryControllerScene1.setOnAdd();
         });
         window.show();
     }
